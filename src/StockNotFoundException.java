@@ -1,4 +1,4 @@
 
-public class StockNotFoundException {
+public class StockNotFoundException extends RuntimeException{
 
 }
