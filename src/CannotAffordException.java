@@ -1,4 +1,4 @@
 
-public class CannotAffordException {
+public class CannotAffordException extends RuntimeException {
 
 }
