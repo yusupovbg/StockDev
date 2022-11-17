@@ -1,4 +1,4 @@
 
-public class StockOwnedAlreadyException {
+public class StockOwnedAlreadyException extends RuntimeException {
 
 }
