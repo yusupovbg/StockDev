@@ -27,7 +27,7 @@ public class App {
         roundCount = 1;
         stockMarket = new StockMarket(stocks);            
         portfolio = new Portfolio();
-        acquisitionView = new();
+        acquisitionView = new AcquisitionView();
         releasementView = new();
         continueOrExitView = new();
         mainView = new();
