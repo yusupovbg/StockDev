@@ -10,7 +10,7 @@ public class AcquisitionView {
                 try{
                     System.out.print("Enter the indices of stocks you\'d like to acquire: ");
                     String stocks = scan.nextLine();
-                    String[] stockArray = stocks.toLowerCase().trim().split("");
+                    String[] stockArray = stocks.toLowerCase().trim().split(" ");
                     App.portfolio.Acquire(stockArray);
                     App.portfolio.AcquiredAnything = true;
                 }
