@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Money {
     public static String answer = "";
-    public static double balance = 200.0;
+    public static double balance = 200.0, oldBalance, balanceDifference;
     public static double debt = 0.0;
     public static boolean borrowed = false, lastChance = false;
     private static int input;
@@ -21,8 +21,10 @@ public class Money {
 
         if(answer.equals("y") || answer.equals("Y") || answer.equals("yes")){
             debt = input;
+			oldBalance = balance;
             balance += input;
 			balance = Math.round(balance * 100) / 100;
+			balanceDifference = Math.round(oldBalance - balance * 100) / 100;
             borrowed = true;
             App.news = "You have been granted the money. Logan will be visiting in 5 days to get his money back.";
             App.daysLeft = 5;
@@ -96,8 +98,10 @@ public class Money {
 				} else {
 					App.inv1[input-1] += amount;
 					App.inv2[input-1] = currentPrice;
+					Money.oldBalance = Money.balance;
 					Money.balance -= (currentPrice * amount);
-					Money.balance = Math.round(Money.balance * 100) / 100;
+					Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+					Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
 					System.out.println("\nStocks purchased!\n");
 				}
 			} else {
@@ -131,8 +135,10 @@ public class Money {
 			oldPrice = App.inv2[input-1];
 			currentPrice = App.exchange[input-1];
 			App.inv1[input-1] -= amount;
+			Money.oldBalance = Money.balance;
 			Money.balance += (amount * currentPrice);
-			Money.balance = Math.round(Money.balance * 100) / 100;
+			Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+			Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
 			
 			System.out.println("\nShares sold! Profit made: $"+((currentPrice - oldPrice)*amount+"\n"));
 		}

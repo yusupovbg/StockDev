@@ -41,8 +41,10 @@ public class Game {
 
                 if(answer.equals("y") || answer.equals("Y") || answer.equals("yes")){
                     App.inv1[random] = 0;
+                    Money.oldBalance = Money.balance;
                     Money.balance += App.inv2[random] * (currentPrice * .2);
-                    Money.balance = Math.round(Money.balance * 100) / 100;
+                    Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+                    Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
                 }
             }
         }
@@ -72,7 +74,7 @@ public class Game {
 		if(reason == 1) { 
 			System.out.println("\nYou failed to pay back Logan.\n");
 		} else {
-			System.out.println("\nFinal score: $"+Money.balance+"\n");
+			System.out.println("\nFinal balance: $"+Money.balance+"\n");
 		}
 		System.out.println("\n\n");
 	}

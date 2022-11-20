@@ -21,14 +21,17 @@ public class App {
     public static void main(String[] args) throws Exception {
         run();
 		Rules.Show();
-        /* menu(); */
     }
 
     public static void menu(){
         for(int i = 0; i < 33; i++) System.out.print("=");
         System.out.println("\nStockDev v"+ver);
         for(int i = 0; i < 33; i++) System.out.print("=");
-        System.out.println("\n\nYour Balance: $"+Money.balance);
+        System.out.print("\n\nYour Balance: $"+Money.balance+" (");
+		if(Money.balanceDifference > 0)
+			System.out.println("+"+Money.balanceDifference+")");
+		else
+			System.out.println(Money.balanceDifference+")");
 
         if(Money.borrowed == true) System.out.println("You are $"+Money.debt+" in debt");
         Game.showNews();
@@ -118,7 +121,7 @@ public class App {
 				}
 			} else {
 				rumor = -1;
-				thisRumor	= "";
+				thisRumor = "";
 				rumorResult	= "";
 			}
 		}
@@ -138,8 +141,10 @@ public class App {
 			} else {
 				Money.lastChance = false;
 				Money.borrowed = false;
+				Money.oldBalance = Money.balance;
 				Money.balance -= Money.debt;
-				Money.balance = Math.round(Money.balance * 100) / 100;
+				Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+				Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
 			}
 			if(Money.lastChance == true) {
 				if(Money.balance < Money.debt) {
