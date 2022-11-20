@@ -139,6 +139,7 @@ public class App {
 				Money.lastChance = false;
 				Money.borrowed = false;
 				Money.balance -= Money.debt;
+				Money.balance = Math.round(Money.balance * 100) / 100;
 			}
 			if(Money.lastChance == true) {
 				if(Money.balance < Money.debt) {

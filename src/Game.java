@@ -42,6 +42,7 @@ public class Game {
                 if(answer.equals("y") || answer.equals("Y") || answer.equals("yes")){
                     App.inv1[random] = 0;
                     Money.balance += App.inv2[random] * (currentPrice * .2);
+                    Money.balance = Math.round(Money.balance * 100) / 100;
                 }
             }
         }

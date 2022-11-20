@@ -22,6 +22,7 @@ public class Money {
         if(answer.equals("y") || answer.equals("Y") || answer.equals("yes")){
             debt = input;
             balance += input;
+			balance = Math.round(balance * 100) / 100;
             borrowed = true;
             App.news = "You have been granted the money. Logan will be visiting in 5 days to get his money back.";
             App.daysLeft = 5;
@@ -96,6 +97,7 @@ public class Money {
 					App.inv1[input-1] += amount;
 					App.inv2[input-1] = currentPrice;
 					Money.balance -= (currentPrice * amount);
+					Money.balance = Math.round(Money.balance * 100) / 100;
 					System.out.println("\nStocks purchased!\n");
 				}
 			} else {
@@ -130,6 +132,7 @@ public class Money {
 			currentPrice = App.exchange[input-1];
 			App.inv1[input-1] -= amount;
 			Money.balance += (amount * currentPrice);
+			Money.balance = Math.round(Money.balance * 100) / 100;
 			
 			System.out.println("\nShares sold! Profit made: $"+((currentPrice - oldPrice)*amount+"\n"));
 		}
