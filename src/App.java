@@ -13,7 +13,7 @@ public class App {
     public static double[] priorPrice = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     public static double[] difference = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     public static String thisRumor, oldRumor, rumorResult = "", news = "";
-    public static String[] rumors = {"Oibes & Co. have hired a new CEO, share prices are expected to drop.", "Charity commends Rhodesia Decoder Integrations for their most recent work, share prices set to rise.", "Foo Co has been rumored to be carelessly dumping toxic waste into a nearby river, prices set to drop.", "Mariana-Monokai-Webster released smear campaign against Foo Co, Foo Co prices expected to fall.", "Experts predict Foo Co share prices are going to rise.", "There are rumors that Mariana-Monokai-Webster is bankrupt and will pull out of the stock exchange. Share prices are expected to drop severely."};
+    public static String[] rumors = {"Oibes & Co. have hired a new CEO, share prices are expected to drop.", "Charity commends Rhodesia Decoder Integrations for their most recent work, share prices set to rise.", "Up&Go has been rumored to be carelessly dumping toxic waste into a nearby river, prices set to drop.", "Mariana-Monokai-Webster released smear campaign against Up&Go, Up&Go prices expected to fall.", "Experts predict Up&Go share prices are going to rise.", "There are rumors that Mariana-Monokai-Webster is bankrupt and will pull out of the stock exchange. Share prices are expected to drop severely."};
     public static String[] stocks = {"Oibes & Co.", "Rhodesia Decoder Integrations", "Up&Go", "Mariana-Monokai-Webster", "Krasnyi Byk Ltd.", "PregresQ LLC"};
 	public static double[] exchange	= {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	public static String[] traits	= {"STABLE", "UNSTABLE", "STABLE", "UNSTABLE", "STABLE", "UNSTABLE"};
@@ -59,9 +59,9 @@ public class App {
 
     private static void run(){
         for(int i = 0; i < 6; i++){
-            exchange[i] = random.nextDouble(200) / 10 - 10;
+            exchange[i] = Math.round(random.nextDouble(200) * 100.0) / 100.0;
             if(i == 5 || i == 6)
-                exchange[i] = random.nextInt(300) / 20 - 20;
+                exchange[i] = Math.round((random.nextDouble(300) + 20) * 100.0) / 100.0;
         }
         round = 1;
     }
