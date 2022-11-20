@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class App {
     public static Random random = new Random();
     public static Scanner scanner = new Scanner(System.in);
-    public static Scanner scanner2 = new Scanner(System.in);
-    public static int input, day, daysLeft = 0, count = 0, gfcCount = 0;
+    public static int input, round, daysLeft = 0, count = 0, gfcCount = 0;
     public static String ver = "1.0.0";
     public static int[] inv1 = {0, 0, 0, 0, 0, 0};
     public static double[] inv2 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -21,7 +20,8 @@ public class App {
 	public static boolean barBankrupt = false;
     public static void main(String[] args) throws Exception {
         run();
-        menu();
+		Rules.Show();
+        /* menu(); */
     }
 
     public static void menu(){
@@ -59,11 +59,11 @@ public class App {
 
     private static void run(){
         for(int i = 0; i < 6; i++){
-            exchange[i] = random.nextInt(40) + 1;
+            exchange[i] = random.nextDouble(200) / 10 - 10;
             if(i == 5 || i == 6)
-                exchange[i] = random.nextInt(180) + 20;
+                exchange[i] = random.nextInt(300) / 20 - 20;
         }
-        day = 1;
+        round = 1;
     }
 
     private static void stockPrices(){
