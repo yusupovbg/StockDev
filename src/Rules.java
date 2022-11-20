@@ -8,10 +8,10 @@ public class Rules {
 
         System.out.println(">>> Every round is initiated by displaying a listing of all stocks available on the market. Each one has got its full name, shorter index and price, depicted with how it has changed compared to previous round. Right below that you will see the list of stocks currently included in your portfolio and your current account balance.\n");
 
-        System.out.println("[Press ENTER to continue...]");
+        System.out.print("[Press ENTER to continue...]");
 
         if(App.scanner.hasNextLine()){
-            System.out.println();
+            System.out.println("\n");
             Thread.sleep(800);
             App.menu();
         }
