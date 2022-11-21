@@ -23,8 +23,8 @@ public class Money {
             debt = input;
 			oldBalance = balance;
             balance += input;
-			balance = Math.round(balance * 100) / 100;
-			balanceDifference = Math.round(oldBalance - balance * 100) / 100;
+			balance = Math.round(balance * 100.0) / 100.0;
+			balanceDifference = Math.round(oldBalance - balance * 100.0) / 100.0;
             borrowed = true;
             App.news = "You have been granted the money. Logan will be visiting in 5 days to get his money back.";
             App.daysLeft = 5;
@@ -94,7 +94,7 @@ public class Money {
 				currentPrice = App.exchange[input-1];
 				if(currentPrice == 0.0) {
 					System.out.println("\nYou can't buy stocks at $0.00\n");
-					Game.sleep(500);
+					Game.sleep(800);
 				} else {
 					App.inv1[input-1] += amount;
 					App.inv2[input-1] = currentPrice;
@@ -129,7 +129,7 @@ public class Money {
 		
 		if(amount > App.inv1[input-1]) {
 			System.out.println("\nYou only have "+ App.inv1[input-1]+" shares in that company.\n");
-			Game.sleep(500);
+			Game.sleep(800);
 			sellStock();
 		} else {
 			oldPrice = App.inv2[input-1];

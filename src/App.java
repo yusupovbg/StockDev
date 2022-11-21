@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class App {
     public static Random random = new Random();
+	public static String username = "yusupovbg", password = "12345678", usernameInput, passwordInput;
     public static Scanner scanner = new Scanner(System.in);
     public static int input, round, daysLeft = 0, count = 0, gfcCount = 0;
     public static String ver = "1.0.0";
@@ -20,6 +21,8 @@ public class App {
 	public static boolean barBankrupt = false;
     public static void main(String[] args) throws Exception {
         run();
+		Authorization.Login();
+		Game.sleep(800);
 		Rules.Show();
     }
 
@@ -53,10 +56,9 @@ public class App {
 			case 5: nextRound(); stockPrices(); menu();
 			case 6: Money.loanShark(); menu();
 			case 7: System.exit(0);
-			case 8: next100(); menu();
 			case 9: while(count <= 100) { Game.rollForRumor(); count++; } count = 0; menu();
 			case 100: Money.balance += 500; menu();
-			default: System.out.println("\nPlease enter a valid choice.\n"); Game.sleep(500); menu();
+			default: System.out.println("\nPlease enter a valid choice.\n"); Game.sleep(800); menu();
 		}
     }
 
@@ -163,18 +165,6 @@ public class App {
 		
 		if(gfc == true && gfcCount == 0) {
 			gfc	= false;
-		}
-	}
-	
-	public static void next100() {
-		int run	= 0;
-		for(int i = 0; i < exchange.length; i++) {
-			System.out.println("\n");
-			while(run <= 100) {
-				exchange[i]	= Money.fluctuate(exchange[i], traits[i]);
-				System.out.println(exchange[i]);
-				run++;
-			} run = 0;
 		}
 	}
 }
