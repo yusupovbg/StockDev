@@ -21,8 +21,6 @@ public class App {
 	public static boolean barBankrupt = false;
     public static void main(String[] args) throws Exception {
         run();
-		Authorization.Login();
-		Game.sleep(800);
 		Rules.Show();
     }
 
