@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class App {
     public static Random random = new Random();
-	public static String username = "yusupovbg", password = "12345678", usernameInput, passwordInput;
     public static Scanner scanner = new Scanner(System.in);
     public static int input, round, daysLeft = 0, count = 0, gfcCount = 0;
     public static String ver = "1.0.0";
@@ -17,11 +16,13 @@ public class App {
     public static String[] rumors = {"Oibes & Co. have hired a new CEO, share prices are expected to drop.", "Charity commends Rhodesia Decoder Integrations for their most recent work, share prices set to rise.", "Up&Go has been rumored to be carelessly dumping toxic waste into a nearby river, prices set to drop.", "Mariana-Monokai-Webster released smear campaign against Up&Go, Up&Go prices expected to fall.", "Experts predict Up&Go share prices are going to rise.", "There are rumors that Mariana-Monokai-Webster is bankrupt and will pull out of the stock exchange. Share prices are expected to drop severely."};
     public static String[] stocks = {"Oibes & Co.", "Rhodesia Decoder Integrations", "Up&Go", "Mariana-Monokai-Webster", "Krasnyi Byk Ltd.", "PregresQ LLC"};
 	public static double[] exchange	= {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-	public static String[] traits	= {"STABLE", "UNSTABLE", "STABLE", "UNSTABLE", "STABLE", "UNSTABLE"};
+	public static String[] traits	= {"STABLE", "UNSTABLE", "STABLE", "STABLE", "STABLE", "UNSTABLE"};
 	public static boolean barBankrupt = false;
     public static void main(String[] args) throws Exception {
         run();
 		Rules.Show();
+		GUI.Show();
+		menu();
     }
 
     public static void menu(){
@@ -36,7 +37,7 @@ public class App {
 
         if(Money.borrowed == true) System.out.println("You are $"+Money.debt+" in debt");
         Game.showNews();
-        System.out.println("\n1. View Stocks\n" + "2. Buy Stocks\n" + "3. Sell Stocks\n" + "4. My Portfolio\n" + "5. Next Round\n" + "6. Loan Shark\n" + "7. Exit");
+        System.out.println("\n1. View Stocks\n" + "2. Buy Stocks\n" + "3. Sell Stocks\n" + "4. Portfolio\n" + "5. Next Round\n" + "6. Loan Shark\n" + "7. Exit");
 
         System.out.println();
 
@@ -98,10 +99,29 @@ public class App {
 			if(random.nextInt(3) != 1) {
 				if(gfc == false) {
 					switch(rumor) {
-						case 0: exchange[0]	= exchange[0] - (exchange[0] * .3); exchange[0]	= Math.round(exchange[0] * 100.0) / 100.0;
-						case 1: exchange[1]	= exchange[1] + (exchange[1] * .2); exchange[1]	= Math.round(exchange[1] * 100.0) / 100.0;
-						case 2: exchange[2]	= exchange[2] - (exchange[2] * .4); exchange[2]	= Math.round(exchange[2] * 100.0) / 100.0;
-						case 3: exchange[2]	= exchange[2] - (exchange[2] * .6); exchange[2]	= Math.round(exchange[2] * 100.0) / 100.0;
+						case 0: 
+						priorPrice[0] = exchange[0];
+						exchange[0]	-= (exchange[0] * .3); exchange[0] = Math.round(exchange[0] * 100.0) / 100.0;
+						difference[0] = exchange[0] - priorPrice[0];
+            			difference[0] = Math.round(difference[0] * 100.0) / 100.0;
+						nextRound();
+						case 1: 
+						priorPrice[1] = exchange[1];
+						exchange[1]	+= (exchange[1] * .2); exchange[1] = Math.round(exchange[1] * 100.0) / 100.0;
+						difference[1] = exchange[1] - priorPrice[1];
+            			difference[1] = Math.round(difference[1] * 100.0) / 100.0;
+						nextRound();
+						case 2: 
+						priorPrice[2] = exchange[2];
+						exchange[2]	-= (exchange[2] * .4); exchange[2] = Math.round(exchange[2] * 100.0) / 100.0;
+						difference[2] = exchange[2] - priorPrice[2];
+            			difference[2] = Math.round(difference[2] * 100.0) / 100.0;
+						nextRound();
+						case 3: 
+						priorPrice[3] = exchange[3];
+						exchange[3]	+= (exchange[3] * .6); exchange[3] = Math.round(exchange[3] * 100.0) / 100.0;
+						difference[3] = exchange[3] - priorPrice[3];
+            			difference[3] = Math.round(difference[3] * 100.0) / 100.0;
 					}
 					thisRumor = "The rumor was true!";
 				}
@@ -155,6 +175,7 @@ public class App {
 		
 		if(barBankrupt == true) {
 			exchange[3]	= 0.0;
+			difference[3] = 0.0;
 		}
 		
 		if(gfc == true) {

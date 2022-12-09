@@ -43,19 +43,19 @@ public class Money {
 			change[1] = 5;
 			change[2] = 1;
 		} else {
-			change[0] = 3;
+			change[0] = 5;
 			change[1] = 7;
 			change[2] = 3;
 		}
 
         switch(chance) {
-			case 0: fluctuation	= fluctuation + (random * change[0]) - change[0];
-			case 1: fluctuation	= fluctuation + (random * change[1]);
-			case 2: fluctuation	= fluctuation - (random * change[2]);
+			case 0: fluctuation	+= random * change[0] - change[0];
+			case 1: fluctuation	+= random * change[1];
+			case 2: fluctuation	-= random * change[2];
 		}
 
         if(App.gfc == true) {
-			fluctuation	= fluctuation - (fluctuation * .8);
+			fluctuation	-= fluctuation * .8;
 		}
 
         if(fluctuation < 0.0) {
