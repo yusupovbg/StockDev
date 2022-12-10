@@ -5,7 +5,7 @@ public class Money {
     public static double balance = 200.0, oldBalance, balanceDifference;
     public static double debt = 0.0;
     public static boolean borrowed = false, lastChance = false;
-    private static int input;
+    public static int input, amount;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void loanShark(){
@@ -74,7 +74,6 @@ public class Money {
 	}
 
     public static void buyStock() {
-		int amount;
 		double currentPrice = 0;
         System.out.println();
         for(int i = 0; i < 33; i++) System.out.print("=");
@@ -89,6 +88,30 @@ public class Money {
 		System.out.println("\nHow many?\n");
 		amount	= scanner.nextInt();
 		
+		if(input > 0 && input < 7) {
+			if(Money.enoughFunds(input, amount) == true) {
+				currentPrice = App.exchange[input-1];
+				if(currentPrice == 0.0) {
+					System.out.println("\nYou can't buy stocks at $0.00\n");
+					Game.sleep(800);
+				} else {
+					App.inv1[input-1] += amount;
+					App.inv2[input-1] = currentPrice;
+					Money.oldBalance = Money.balance;
+					Money.balance -= (currentPrice * amount);
+					Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+					Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
+					System.out.println("\nStocks purchased!\n");
+				}
+			} else {
+				System.out.println("\nYou don't have enough capital to buy these shares.\n");
+			}
+		}
+	}
+
+    public static void buyGUI() {
+		double currentPrice = 0;
+
 		if(input > 0 && input < 7) {
 			if(Money.enoughFunds(input, amount) == true) {
 				currentPrice = App.exchange[input-1];
@@ -131,6 +154,26 @@ public class Money {
 			System.out.println("\nYou only have "+ App.inv1[input-1]+" shares in that company.\n");
 			Game.sleep(800);
 			sellStock();
+		} else {
+			oldPrice = App.inv2[input-1];
+			currentPrice = App.exchange[input-1];
+			App.inv1[input-1] -= amount;
+			Money.oldBalance = Money.balance;
+			Money.balance += (amount * currentPrice);
+			Money.balance = Math.round(Money.balance * 100.0) / 100.0;
+			Money.balanceDifference = Math.round((Money.balance - Money.oldBalance) * 100.0) / 100.0;
+			
+			System.out.println("\nShares sold! Profit made: $"+((currentPrice - oldPrice)*amount+"\n"));
+		}
+	}
+    public static void sellStockGUI() {
+		double oldPrice	= 0.0;
+		double currentPrice = 0.0;
+		
+		if(amount > App.inv1[input-1]) {
+			System.out.println("\nYou only have "+ App.inv1[input-1]+" shares in that company.\n");
+			Game.sleep(800);
+			sellStockGUI();
 		} else {
 			oldPrice = App.inv2[input-1];
 			currentPrice = App.exchange[input-1];

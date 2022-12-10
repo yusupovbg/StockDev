@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GUI extends JFrame {
-    private static JButton buyOibes, buyRhodesia, buyUpGo, buyMariana, buyKrasnyi, nextRound;
-    private static JLabel companyName, priceOibes, priceRhodesia, priceUpGo, priceMariana, priceKrasnyi , balance, debt;
+    private static JButton buyOibes, buyRhodesia, buyUpGo, buyMariana, buyKrasnyi, nextRound, portfolio, sell;
+    private static JLabel companyName, priceOibes, priceRhodesia, priceUpGo, priceMariana, priceKrasnyi , balance, debt, stock;
     private static JPanel buyStocks;
     public static GridBagConstraints con = new GridBagConstraints();
     public static JFrame gui = new JFrame("StockDev v.1.0.0");
@@ -76,6 +76,13 @@ public class GUI extends JFrame {
         con.gridx = 0;
 		nextRound = new JButton("Next Round");
 		buyStocks.add(nextRound, con);
+		con.gridy = App.stocks.length;
+        con.gridx++;
+		portfolio = new JButton("Portfolio");
+		buyStocks.add(portfolio, con);
+        con.gridx++;
+		sell = new JButton("Sell");
+		buyStocks.add(sell, con);
 
         HandlerClass handler = new HandlerClass();
 		buyOibes.addActionListener(handler);
@@ -84,6 +91,8 @@ public class GUI extends JFrame {
 		buyMariana.addActionListener(handler);
 		buyKrasnyi.addActionListener(handler);
 		nextRound.addActionListener(handler);
+		portfolio.addActionListener(handler);
+		sell.addActionListener(handler);
     }
 
     public static void showPrices(Container pane, boolean update){
@@ -182,22 +191,31 @@ public class GUI extends JFrame {
 			pane.repaint();
 		}
     }
-
     private class HandlerClass implements ActionListener {
 		int amount;
 		JOptionPane yesNo;
-		Object obj;
 		Object[] options = new String[] {"Yes", "No"};
 		JDialog dialog;
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == nextRound) {
 				App.nextRound();
+				/* App.menu(); */
 				showPrices(gui, true);
+				SellGUI.showPrices(gui, true);
 				Game.showNews();
+			}
+			if(event.getSource() == portfolio) {
+				Portfolio.Show();
+				PortfolioGUI.Show();
+				/* App.menu(); */
+			}
+			if(event.getSource() == sell) {
+				SellGUI.Show();
+				/* Money.sellStock(); */
 			}
 			if(event.getSource() == buyOibes || event.getSource() == buyRhodesia || event.getSource() == buyUpGo || event.getSource() == buyMariana || event.getSource() == buyKrasnyi) {
 				String StAmount	= JOptionPane.showInputDialog("How many shares would you like to buy?");
-				amount		= Integer.parseInt(StAmount);
+				amount = Integer.parseInt(StAmount);
 			}
 			
 			if(event.getSource() == buyOibes) {
@@ -205,8 +223,9 @@ public class GUI extends JFrame {
 				yesNo.setOptions(options);
 				dialog = yesNo.createDialog(new JFrame(), "Dialog");
 				dialog.setVisible(true);
-				obj	= yesNo.getValue();
-				System.out.println("User chose: "+obj);
+				Money.amount = amount;
+				Money.input = 1;
+				Money.buyGUI();
 			}
 			
 			if(event.getSource() == buyRhodesia) {
@@ -214,17 +233,19 @@ public class GUI extends JFrame {
 				yesNo.setOptions(options);
 				dialog = yesNo.createDialog(new JFrame(), "Dialog");
 				dialog.setVisible(true);
-				obj	= yesNo.getValue();
-				System.out.println("User chose: "+obj);
+				Money.amount = amount;
+				Money.input = 2;
+				Money.buyGUI();
 			}
 			
 			if(event.getSource() == buyUpGo) {
-				yesNo	= new JOptionPane("Buy "+amount+" shares in Up&Go for $"+App.exchange[2]+" each? (Total $"+(amount*App.exchange[2])+")");
+				yesNo = new JOptionPane("Buy "+amount+" shares in Up&Go for $"+App.exchange[2]+" each? (Total $"+(amount*App.exchange[2])+")");
 				yesNo.setOptions(options);
 				dialog = yesNo.createDialog(new JFrame(), "Dialog");
 				dialog.setVisible(true);
-				obj	= yesNo.getValue();
-				System.out.println("User chose: "+obj);
+				Money.amount = amount;
+				Money.input = 3;
+				Money.buyGUI();
 			}
 			
 			if(event.getSource() == buyMariana) {
@@ -232,8 +253,9 @@ public class GUI extends JFrame {
 				yesNo.setOptions(options);
 				dialog = yesNo.createDialog(new JFrame(), "Dialog");
 				dialog.setVisible(true);
-				obj	= yesNo.getValue();
-				System.out.println("User chose: "+obj);
+				Money.amount = amount;
+				Money.input = 4;
+				Money.buyGUI();
 			}
 			
 			if(event.getSource() == buyKrasnyi) {
@@ -241,8 +263,9 @@ public class GUI extends JFrame {
 				yesNo.setOptions(options);
 				dialog = yesNo.createDialog(new JFrame(), "Dialog");
 				dialog.setVisible(true);
-				obj	= yesNo.getValue();
-				System.out.println("User chose: "+obj);
+				Money.amount = amount;
+				Money.input = 5;
+				Money.buyGUI();
 			}
 		}
 	}
